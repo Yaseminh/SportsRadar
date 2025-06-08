@@ -1,11 +1,14 @@
 package Entity;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.*;
 import java.util.regex.*;
 import java.util.stream.Collectors;
 public class FileParser {
-
-    public static String solve(String input) throws Exception {
+    private static final Logger logger = LogManager.getLogger(FileParser.class);
+    public static String solve(String input) {
         //We converted it to array starting from : expression
         String[] parts = input.split(":");
         if (parts.length != 2) throw new IllegalArgumentException("Invalid line format");
@@ -16,18 +19,22 @@ public class FileParser {
         if (items.size() > 15) throw new IllegalArgumentException("Too many items");
         return findBestCombination(items,maxWeight);
     }
-    private static List<Item> parseItems(String itemsString) throws IllegalArgumentException {
+    private static List<Item> parseItems(String itemsString)  {
         List<Item> items = new ArrayList<>();
         //Matcher checks if the string conforms to a certain format.
         //for example that format:5,30.18,€9
-        Matcher matcher = Pattern.compile("\\((\\d+),(\\d+(\\.\\d+)?),€(\\d+)\\)").matcher(itemsString);
-        while (matcher.find()) {
-            int index = Integer.parseInt(matcher.group(1));
-            double weight = Double.parseDouble(matcher.group(2));
-            int cost = Integer.parseInt(matcher.group(4));
-            if (weight > 100 || cost > 100)
-                throw new IllegalArgumentException("Item constraint violated");
-            items.add(new Item(index, weight, cost));
+        try {
+            Matcher matcher = Pattern.compile("\\((\\d+),(\\d+(\\.\\d+)?),€(\\d+)\\)").matcher(itemsString);
+            while (matcher.find()) {
+                int index = Integer.parseInt(matcher.group(1));
+                double weight = Double.parseDouble(matcher.group(2));
+                int cost = Integer.parseInt(matcher.group(4));
+                if (weight > 100 || cost > 100)
+                    logger.warn("Item constraint violated for item index " + index + ": weight=" + weight + ", cost=" + cost);
+                items.add(new Item(index, weight, cost));
+            }
+        } catch (IllegalArgumentException ex){
+            logger.error(ex.getMessage());
         }
         return items;
     }

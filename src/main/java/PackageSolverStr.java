@@ -18,15 +18,13 @@ public class PackageSolverStr {
                         String result = FileParser.solve(fileContent);
                         System.out.println(result);
                     } catch (Exception e) {
-                        System.err.println("Error: " + e.getMessage());
+                        logger.error(e.getMessage());
                     }
                 }
             }
             // Write summary log after all process is finished
             logger.info("All input lines processed successfully.");
-            System.out.println("All input lines processed successfully.");
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
             logger.error("Error reading file '{}': {}", filePath, e.getMessage());
         }
     }
