@@ -75,10 +75,11 @@ For each test case, print:
 
 ## 💻 How to Run
 
-1. Compile the Java program:
+1. After downloading log4j-core-2.3.2.jar, log4j-api-2.24.3.jar,  compile the Java program:
 
 ```bash
 cd C:\Users\yasemin\Desktop\demo>
+javac -cp .;log4j-api-2.24.3.jar;log4j-core-2.3.2.jar -d out src\main\java\Entity\Item.java src\main\java\Entity\FileParser.java
 java -cp out;log4j-api-2.24.3.jar;log4j-core-2.3.2.jar PackageSolverStr src\main\resources\input.txt
 ````
 
