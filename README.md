@@ -52,7 +52,8 @@ For each test case, print:
 - A comma-separated list of item indices (in ascending order) **if a valid selection exists**  
 - `-` if **no valid combination** fits the constraints
 
-### Example Output:
+## Example Output:
+
 
 4
 -
