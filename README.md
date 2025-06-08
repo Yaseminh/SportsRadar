@@ -56,6 +56,7 @@ For each test case, print:
 
 ```
 4
+-
 2,7
 8,9
 ```
